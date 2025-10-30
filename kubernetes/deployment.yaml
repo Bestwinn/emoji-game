@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: emoji-game
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: emoji-game
+  template:
+    metadata:
+      labels:
+        app: emoji-game
+    spec:
+      containers:
+      - name: emoji-game
+        image: bestwin/emoji-game:v1
+        ports:
+        - containerPort: 80
