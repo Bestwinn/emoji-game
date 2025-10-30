@@ -1,13 +1,16 @@
 trigger:
-  branches:
-    include:
-      - main
+- main
 
 pool:
   vmImage: 'ubuntu-latest'
 
 steps:
-- task: Checkout@1
-
-- script: echo "✅ Emoji Catcher Game pipeline ran successfully!"
-  displayName: "Run build check"
+- task: Docker@2
+  displayName: Build and push Docker image
+  inputs:
+    containerRegistry: 'DockerHubConnection'   # You'll create this next
+    repository: 'bestwin/emoji-game'
+    command: 'buildAndPush'
+    Dockerfile: '**/Dockerfile'
+    tags: |
+      latest
