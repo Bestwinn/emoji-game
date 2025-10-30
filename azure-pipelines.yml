@@ -1,0 +1,13 @@
+trigger:
+  branches:
+    include:
+      - main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- task: Checkout@1
+
+- script: echo "✅ Emoji Catcher Game pipeline ran successfully!"
+  displayName: "Run build check"
