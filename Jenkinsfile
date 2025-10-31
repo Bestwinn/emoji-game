@@ -2,42 +2,46 @@ pipeline {
     agent any
 
     environment {
-        IMAGE_NAME = 'emoji-game'
+        IMAGE_NAME = "bestwinn/emoji-game"
     }
 
     stages {
         stage('Checkout') {
             steps {
                 echo 'Cloning repository...'
-                git 'https://github.com/Bestwinn/emoji-game.git'
+                git branch: 'main', url: 'https://github.com/Bestwinn/emoji-game.git'
             }
         }
 
         stage('Build Docker Image') {
             steps {
-                script {
-                    echo 'Building Docker image...'
-                    bat "docker build -t %IMAGE_NAME%:latest ."
-                }
+                echo 'Building Docker image...'
+                bat 'docker build -t bestwinn/emoji-game:latest .'
             }
         }
 
         stage('Push to Docker Hub') {
             steps {
-                script {
-                    echo 'Pushing Docker image...'
-                    bat "docker push %IMAGE_NAME%:latest"
-                }
+                echo 'Pushing image to Docker Hub...'
+                bat 'docker push bestwinn/emoji-game:latest'
+            }
+        }
+
+        stage('Deploy to Kubernetes') {
+            steps {
+                echo 'Deploying to Kubernetes cluster...'
+                bat 'kubectl apply -f k8s-deployment.yaml'
+                bat 'kubectl rollout status deployment/emoji-game'
             }
         }
     }
 
     post {
         success {
-            echo '✅ Build and push completed successfully!'
+            echo '✅ Pipeline executed successfully! Application deployed.'
         }
         failure {
-            echo '❌ Build failed. Please check console logs.'
+            echo '❌ Build failed. Please check logs.'
         }
     }
 }
