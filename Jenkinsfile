@@ -17,7 +17,7 @@ pipeline {
             steps {
                 script {
                     echo 'Building Docker image...'
-                    sh 'docker build -t $IMAGE_NAME:latest .'
+                    bat 'docker build -t $IMAGE_NAME:latest .'
                 }
             }
         }
@@ -27,8 +27,8 @@ pipeline {
                 script {
                     echo 'Pushing image to Docker Hub...'
                     withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'DOCKER_PASS', usernameVariable: 'DOCKER_USER')]) {
-                        sh 'echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin'
-                        sh 'docker push $IMAGE_NAME:latest'
+                        bat 'echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin'
+                        bat 'docker push $IMAGE_NAME:latest'
                     }
                 }
             }
