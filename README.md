@@ -19,10 +19,28 @@ This project automates the build, deployment, and infrastructure provisioning of
 
 ## 🧠 Architecture
 
-```text
-+-------------+         +-------------+         +---------------+         +-------------+         +---------------+
-|  Developer  |  --->   |   GitHub    |  --->   |  Azure DevOps |  --->   |  Docker Hub |  --->   |  Kubernetes   |
-| (Source Code)|        | (Repo & CI) |        | (CI/CD Build) |        | (Image Repo)|        | (Deployment)  |
-+-------------+         +-------------+         +---------------+         +-------------+         +---------------+
-                                             | Terraform (IaC) |
-                                             +-----------------+
+![Uploading image.png…]()
+
+
+⚙️ Setup Instructions
+1️⃣ Clone the Repository
+git clone https://github.com/Bestwinn/emoji-game.git
+cd emoji-game
+
+2️⃣ Build & Run Locally with Docker
+docker build -t emoji-game .
+docker run -p 8080:80 emoji-game
+
+
+Then open: http://localhost:8080
+
+3️⃣ Deploy on Kubernetes (Minikube)
+minikube start
+kubectl apply -f kubernetes/deployment.yaml
+kubectl apply -f kubernetes/service.yaml
+minikube service emoji-game-service
+
+4️⃣ Provision via Terraform
+cd terraform
+terraform init
+terraform apply -auto-approve
