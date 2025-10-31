@@ -1,10 +1,6 @@
 pipeline {
     agent any
 
-    environment {
-        IMAGE_NAME = "bestwinn/emoji-game"
-    }
-
     stages {
         stage('Checkout') {
             steps {
@@ -13,35 +9,22 @@ pipeline {
             }
         }
 
-        stage('Build Docker Image') {
+        stage('Build') {
             steps {
-                echo 'Building Docker image...'
-                bat 'docker build -t bestwinn/emoji-game:latest .'
+                echo 'Simulating build process...'
             }
         }
 
-        stage('Push to Docker Hub') {
+        stage('Deploy') {
             steps {
-                echo 'Pushing image to Docker Hub...'
-                bat 'docker push bestwinn/emoji-game:latest'
-            }
-        }
-
-        stage('Deploy to Kubernetes') {
-            steps {
-                echo 'Deploying to Kubernetes cluster...'
-                bat 'kubectl apply -f k8s-deployment.yaml'
-                bat 'kubectl rollout status deployment/emoji-game'
+                echo 'Simulating deploy process...'
             }
         }
     }
 
     post {
-        success {
-            echo '✅ Pipeline executed successfully! Application deployed.'
-        }
-        failure {
-            echo '❌ Build failed. Please check logs.'
+        always {
+            echo 'Pipeline execution complete ✅'
         }
     }
 }
