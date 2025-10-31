@@ -18,8 +18,9 @@ This project automates the build, deployment, and infrastructure provisioning of
 ---
 
 ## 🧠 Architecture
+<img width="952" height="693" alt="Picture1" src="https://github.com/user-attachments/assets/77cfa4ab-907a-4863-ac06-1e0c9359bff6" />
 
-![Uploading image.png…]()
+
 
 
 ⚙️ Setup Instructions
